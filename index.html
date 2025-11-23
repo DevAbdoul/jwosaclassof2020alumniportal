@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JWOSA Class of 2020 Portal</title>
+  <style>
+    :root{
+      --accent:#1f6feb;
+      --muted:#6b7280;
+      --bg:#0f1724;
+      --card:#0b1220;
+      --glass: rgba(255,255,255,0.06);
+      --glass-2: rgba(255,255,255,0.03);
+      --radius:14px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071025 0%, #071827 60%);color:#e6eef8}
+    a{color:var(--accent);text-decoration:none}
+
+    /* Header / Hero */
+    .hero{
+      height:60vh;min-height:380px;position:relative;overflow:hidden;border-bottom-left-radius:24px;border-bottom-right-radius:24px;margin-bottom:18px
+    }
+	
+    .hero .slides{height:100%;width:100%;position:absolute;inset:0}
+    .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity .9s ease, transform .9s ease}
+    .slide.show{opacity:1;transform:translateY(0)}
+    .slide::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.5))}
+    .hero .overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+    .hero h1{font-size:clamp(22px,4vw,48px);margin:0;text-align:center;z-index:2;pointer-events:auto}
+    .hero p{color:var(--muted);margin:8px 0 0;text-align:center}
+    .container{max-width:1100px;margin:0 auto;padding:18px}
+
+    /* Header nav */
+    header{position:sticky;top:30px;z-index:40}
+    .nav{display:flex;gap:12px;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:20px}
+    .brand .logo{width:90px;height:90px;border-radius:50px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:white}
+    nav ul{display:flex;gap:12px;list-style:none;padding:0;margin:0}
+    .nav a.btn{background:var(--glass);padding:8px 14px;border-radius:10px}
+
+    /* Card layout */
+    main{display:grid;grid-template-columns:1fr;gap:16px}
+    .card{background:linear-gradient(180deg,var(--card), rgba(11,18,32,0.6));padding:16px;border-radius:var(--radius);box-shadow:0 6px 20px rgba(0,0,0,0.6);backdrop-filter: blur(6px)}
+
+    /* Auth form */
+    .auth{max-width:420px;margin:12px auto}
+    .auth form{display:grid;gap:10px}
+    label{font-size:13px;color:var(--muted)}
+    input,select,textarea{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    .actions{display:flex;gap:8px;align-items:center}
+    .btn{background:var(--accent);color:white;padding:10px 12px;border-radius:8px;border:none;cursor:pointer}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06)}
+
+    /* Nav tabs for main content */
+    .tabs{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:8px}
+    .tabs button{background:var(--glass-2);border:none;color:inherit;padding:8px 12px;border-radius:10px;cursor:pointer}
+    .tabs button.active{background:linear-gradient(90deg,var(--accent),#7c3aed);color:white}
+
+    /* Gallery grid */
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .gallery .item{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:8px;border-radius:10px}
+    .gallery img{width:100%;height:160px;object-fit:cover;border-radius:8px}
+    .meta{font-size:13px;color:var(--muted);margin-top:8px}
+
+    /* Executive / Members cards */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+    .person{display:flex;gap:12px;align-items:center;padding:10px;border-radius:10px;background:var(--glass)}
+    .person img{width:86px;height:86px;border-radius:8px;object-fit:cover}
+    .person .info b{display:block}
+
+    /* Archive list */
+    .archive .row{display:flex;gap:12px;align-items:center;padding:10px;border-bottom:1px solid rgba(255,255,255,0.03)}
+
+    /* Contact */
+    .contact form{display:grid;gap:8px}
+
+    footer{margin-top:5px;text-align:center;color:var(--muted);font-size:15px;font-family:Cambria;}
+	 h3{text-align:left;font-family:Mistral;margin:0 0 8px 0}
+    /* Responsive */
+    @media (max-width:720px){.hero{height:46vh}}
+  </style>
+</head>
+<body>
+  <header class="container">
+    <div class="nav">
+      <div class="brand">
+        <div class="logo">
+	   <img src="jlo.png" alt="JWOSA Logo" class="logo" />
+				</div>
+        <div>
+          <div style="font-weight:1000;font-family:Mistral;font-size:30px">WELCOME TO JWOSA ClASS OF 2020</div>
+          <div style="font-size:15px;font-family:Cambria;font-color:#F8F8F8;color:var(--muted)">Alumni Portal</div>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li><a class="btn" href="#home" data-link>Home</a></li>
+          <li><a class="btn" href="#about" data-link>About</a></li>
+          <li><a class="btn" href="#archive" data-link>Archive</a></li>
+          <li><a class="btn" href="#contact" data-link>Contact</a></li>
+          <li><button id="openLogin" class="btn secondary">Register / Login</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO / Slideshow -->
+    <section class="hero card" id="home">
+      <div class="slides" aria-hidden="false">
+        <div class="slide show" style="background-image:url('https://images.unsplash.com/photo-1509704496321-4b1c6a790b31?auto=format&fit=crop&w=1400&q=60');"></div>
+        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=1400&q=60');"></div>
+        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=60');"></div>
+		<div class="slide" style="background-image: url('ggg.jpg');"></div>
+		<div class="slide" style="background-image: url('g2.jpeg');"></div>
+		<div class="slide" style="background-image: url('g3.jpeg');"></div>
+		<div class="slide" style="background-image: url('g4.jpeg');"></div>
+		<div class="slide" style="background-image: url('gl2.jpeg');"></div>
+		<div class="slide" style="background-image: url('gl10.jpeg');"></div>
+		<div class="slide" style="background-image: url('gl3.jpeg');"></div>
+		<div class="slide" style="background-image: url('alm.JPG');"></div>
+		<div class="slide" style="background-image: url('we.JPG');"></div>
+		<div class="slide" style="background-image: url('we1.JPG');"></div>
+		<div class="slide" style="background-image: url('we2.JPG');"></div>
+		</div>
+
+
+      <div class="overlay">
+        <div style="font-family:Mistral;text-align:center;max-width:900px;padding:22px;border-radius:12px;backdrop-filter:blur(6px);background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));">
+          <h1>JWOSA CLASS OF 2020 PORTAL</h1>
+          <p style="font-family:Cambria;color:#F8F8F8(--muted)">Welcome! Sign up or log in to access member-only pages and archives.</p>
+          <div style="margin-top:12px;display:flex;gap:8px;justify-content:center">
+            <button id="ctaRegister" class="btn">Register</button>
+            <button id="ctaLogin" class="btn secondary">Login</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUTH MODAL (simple) -->
+    <div id="authModal" style="display:none;position:fixed;inset:0;align-items:center;justify-content:center;z-index:80;padding:18px">
+      <div style="max-width:920px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="card auth">
+          <h3>REGISTER<h3>
+          <form id="registerForm">
+            <label>Full name<input name="name" required></label>
+            <label>Email<input name="email" type="email" required></label>
+            <label>Password<input name="password" type="password" minlength="6" required></label>
+            <label>Role<select name="role"><option>Member</option><option>Executive</option></select></label>
+            <div class="actions"><button type="submit" class="btn">Create account</button><button type="button" id="closeModalReg" class="btn secondary">Close</button></div>
+          </form>
+        </div>
+        <div class="card auth">
+          <h3>LOGIN</h3>
+          <form id="loginForm">
+            <label>Email<input name="email" type="email" required></label>
+            <label>Password<input name="password" type="password" required></label>
+            <div class="actions"><button type="submit" class="btn">Login</button><button type="button" id="closeModalLog" class="btn secondary">Close</button></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+
+    <footer class="card">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <h3 class="font-semibold text-lg">JWOSA CLASS OF 2020 ALUMNI</h3>
+		<p style="text-align:left;text-sm text-white-900 mt-2"> Welcome to JWOSA Class of 2020 Portal.  
+        This website serves as our official digital archive and community hub, 
+        documenting our achievements, friendships, and memories from our time together.</p>
+      </div>
+
+      <div>
+        <h3 class="font-medium">QUICK LINK</h3>
+        <ul style="text-align:left;text-sm text-white-900 mt-2 space-y-1">
+          <li><a href="ctaLogin" class="hover:text-indigo-600">Login</a></li>
+          <li><a href="ctaRegister" class="hover:text-indigo-600">Register</a></li>
+          <li><a href="#contact" class="hover:text-indigo-600">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-medium">CONTACT</h3>
+        <p style="text-align:left;text-sm text-white-900 mt-2">Email: jwosaclassof2020alumni@gmail.com<br/>Phone: +2349068511785</p>
+      </div>
+    </div>
+      <small>Made with ❤️ for JWOSA Class of 2020.<br> © 2025-All right reserved</small>
+    </footer>
+	  </main>
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  intent="WELCOME"
+  chat-title="JWOSAAlumniAssistant"
+  agent-id="18b9aae8-3521-400d-96f2-56cc61fcbbcb"
+  language-code="en"
+></df-messenger>
+  <script>
+     // ====== Slideshow (3s interval) ======
+    (function(){
+      const slides = document.querySelectorAll('.slide');
+      let idx = 0;
+      function show(i){slides.forEach((s,si)=>{s.classList.toggle('show', si===i)})}
+      setInterval(()=>{idx=(idx+1)%slides.length;show(idx)},3000);
+    })();
+
+    // ====== Modal toggles ======
+    const authModal = document.getElementById('authModal');
+    document.getElementById('openLogin').addEventListener('click', ()=>authModal.style.display='flex');
+    document.getElementById('ctaRegister').addEventListener('click', ()=>authModal.style.display='flex');
+    document.getElementById('ctaLogin').addEventListener('click', ()=>authModal.style.display='flex');
+    document.getElementById('closeModalReg').addEventListener('click', ()=>authModal.style.display='none');
+    document.getElementById('closeModalLog').addEventListener('click', ()=>authModal.style.display='none');
+
+    // ====== Simple auth using localStorage ======
+    const USERS_KEY = 'jwosa_users_v1';
+    function loadUsers(){try{return JSON.parse(localStorage.getItem(USERS_KEY)||'[]')}catch(e){return[]}}
+    function saveUsers(u){localStorage.setItem(USERS_KEY, JSON.stringify(u))}
+
+    // Register
+    document.getElementById('registerForm').addEventListener('submit',(e)=>{
+      e.preventDefault();
+      const f = e.target; const name=f.name.value.trim(); const email=f.email.value.trim().toLowerCase(); const pass=f.password.value; const role=f.role.value;
+      if(!name||!email||!pass) return alert('Fill all fields');
+      const users = loadUsers();
+      if(users.find(u=>u.email===email)) return alert('An account with this email exists');
+      users.push({name,email,password:btoa(pass),role,created:Date.now()});
+      saveUsers(users);
+      alert('Account created. You can now login.');
+      f.reset();
+    });
+
+    // Login
+    document.getElementById('loginForm').addEventListener('submit',(e)=>{
+      e.preventDefault();
+      const f=e.target; const email=f.email.value.trim().toLowerCase(); const pass=f.password.value;
+      const users = loadUsers(); const found = users.find(u=>u.email===email && u.password===btoa(pass));
+      if(!found) return alert('Invalid credentials');
+      // set session
+      localStorage.setItem('jwosa_session', JSON.stringify({email:found.email,name:found.name,role:found.role}));
+      authModal.style.display='none';
+window.location.href = "dashboard.html";
+      f.reset();
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', ()=>{
+      localStorage.removeItem('jwosa_session');
+      document.getElementById('dashboard').style.display='none';
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+
+    // Show dashboard if logged in
+    function showDashboard(){
+      const sess = JSON.parse(localStorage.getItem('jwosa_session')||'null');
+      if(!sess) return;
+      document.getElementById('dashboard').style.display='block';
+      document.getElementById('welcomeUser').textContent = `Welcome, ${sess.name.split(' ')[0] || sess.name}`;
+      document.getElementById('userRole').textContent = sess.role || 'Member area';
+      // default show About tab
+      switchTab('about');
+      populateDemoContent();
+      // scroll to dashboard
+      setTimeout(()=>document.getElementById('dashboard').scrollIntoView({behavior:'smooth'}),200);
+    }
+
+    // Tabs
+    document.querySelectorAll('.tabs button').forEach(btn=>btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      switchTab(btn.dataset.show);
+    }));
+
+    function switchTab(name){
+      ['about','gallery','executives','members','archive','contact'].forEach(k=>{
+        const el = document.getElementById(k);
+        if(!el) return;
+        el.style.display = (k===name)?'block':'none';
+      });
+    }
+
+    // Demo content population (gallery/executives/members/archive)
+    function populateDemoContent(){
+      const g = document.getElementById('galleryGrid'); g.innerHTML='';
+      const exec = document.getElementById('executiveGrid'); exec.innerHTML='';
+      const mem = document.getElementById('membersGrid'); mem.innerHTML='';
+      const arch = document.getElementById('archiveList'); arch.innerHTML='';
+
+      const samplePics = [
+        {src:'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=60',title:'Graduation Day',info:'Class ceremony - Jan 2020'},
+        {src:'https://images.unsplash.com/photo-1505238680356-667803448bb6?auto=format&fit=crop&w=800&q=60',title:'Group Meetup',info:'Alumni meetup - Dec 2020'},
+        {src:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=60',title:'Project Showcase',info:'Tech project fair - Mar 2021'},
+        {src:'g1.jpg',title:'Project Showcase',info:'Tech project fair - Mar 2021'}
+		
+      ];
+
+      samplePics.forEach(it=>{
+        const item=document.createElement('div'); item.className='item';
+        item.innerHTML = `<img src="${it.src}" alt="${it.title}"><div class=meta><strong>${it.title}</strong><div style=height:8px></div><div>${it.info}</div></div>`;
+        g.appendChild(item);
+      });
+
+      const executives = [
+        {name:'AbdulWahab M. S.',role:'President',gender:'',qual:'B.Eng Elec/Elec Eng (in-view)',img:'wa.jpg'},
+        {name:'Muhammad Sani Harun',role:'Secretary',gender:'M',qual:'B.Sc Math',img:'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=60'}
+
+      ];
+
+      executives.forEach(p=>{
+        const d=document.createElement('div'); d.className='person';
+        d.innerHTML = `<img src="${p.img}" alt="${p.name}"><div class="info"><b>${p.name}</b><div style="font-size:13px;color:var(--muted)">${p.role}</div><div style="margin-top:6px;font-size:13px"><span><b>Gender:</b> ${p.gender}</span><br><span><b>Qual:</b> ${p.qual}</span></div></div>`;
+        exec.appendChild(d);
+      });
+
+      // members (demo)
+      for(let i=1;i<=6;i++){
+        const d=document.createElement('div'); d.className='person';
+        d.innerHTML = `<img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?auto=format&fit=crop&w=400&q=60"><div class="info"><b>Member ${i}</b><div style="font-size:13px;color:var(--muted)">Member</div><div style="margin-top:6px;font-size:13px"><b>Rank:</b> - </div></div>`;
+        mem.appendChild(d);
+      }
+
+      // archive
+      const archives = [
+        {year:2020,desc:'Original class photos and records.'},
+        {year:2021,desc:'Reunion photos and minutes.'}
+      ];
+      archives.forEach(a=>{
+        const r=document.createElement('div'); r.className='row';
+        r.innerHTML = `<div style="width:80px;font-weight:700">${a.year}</div><div style="color:var(--muted)">${a.desc}</div>`;
+        arch.appendChild(r);
+      });
+    }
+
+    // Auto show dashboard if session exists
+    showDashboard();
+
+    // Contact form (demo: save to localStorage list)
+    document.getElementById('contactForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const fd = new FormData(e.target); const obj = Object.fromEntries(fd.entries());
+      const msgs = JSON.parse(localStorage.getItem('jwosa_messages'||'[]')) || [];
+      msgs.push({...obj,ts:Date.now()});
+      localStorage.setItem('jwosa_messages', JSON.stringify(msgs));
+      alert('Thanks — message saved locally.');
+      e.target.reset();
+    });
+    document.getElementById('contactClear').addEventListener('click', ()=>document.getElementById('contactForm').reset());
+
+    // Smooth scrolling for header links
+    document.querySelectorAll('[data-link]').forEach(a=>a.addEventListener('click', (e)=>{
+      e.preventDefault(); const id = a.getAttribute('href').slice(1); const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth'});
+    }));
+
+    // Accessibility: close modal on ESC
+    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ authModal.style.display='none' } });
+
+  </script>
+<script>
+// REGISTER BUTTON HANDLER
+const registerBtn = document.getElementById('registerBtn');
+if (registerBtn) {
+  registerBtn.addEventListener('click', () => {
+    document.querySelector('#registerSection').scrollIntoView({ behavior: 'smooth' });
+  });
+}
+
+// REGISTRATION FORM SUBMIT
+const regForm = document.getElementById('regForm');
+if (regForm) {
+  regForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const fullname = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPassword').value.trim();
+
+    if (!fullname || !email || !password) {
+      alert('Please fill all fields');
+      return;
+    }
+
+    // Save user
+    const userData = { fullname, email, password };
+    localStorage.setItem('jwosa_user', JSON.stringify(userData));
+
+    alert('Registration successful! Now login.');
+    document.querySelector('#loginSection').scrollIntoView({ behavior: 'smooth' });
+  });
+}
+ <!-- Dialogflow Chatbot -->
+<script>
+  (function(d, s, id){
+      var js, el = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1";
+      el.parentNode.insertBefore(js, el);
+  }(document, 'script', 'dialogflow-messenger'));
+</script>
+</body>
+</html>

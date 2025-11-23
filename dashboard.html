@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>JWOSA Class of 2020 — Dashboard</title>
+
+<style>
+  :root{
+    --accent:#1f6feb;
+    --muted:#6b7280;
+    --bg:#0f1724;
+    --card:#0b1220;
+    --glass: rgba(255,255,255,0.06);
+    --glass-2: rgba(255,255,255,0.03);
+    --radius:20px;
+    --sidebar-w:260px;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Cambria;
+  }
+  *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071025 0%, #071827 60%);color:#e6eef8}
+    a{color:var(--accent);text-decoration:none}
+
+    /* Header / Hero */
+    .hero{
+      height:60vh;min-height:380px;position:relative;overflow:hidden;border-bottom-left-radius:24px;border-bottom-right-radius:24px;margin-bottom:18px
+    }
+    .hero .slides{height:100%;width:100%;position:absolute;inset:0}
+    .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity .9s ease, transform .9s ease}
+    .slide.show{opacity:1;transform:translateY(0)}
+    .slide::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.5))}
+    .hero .overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+    .hero h1{font-size:clamp(22px,4vw,48px);margin:0;text-align:center;z-index:2;pointer-events:auto}
+    .hero p{color:var(--muted);margin:8px 0 0;text-align:center}
+    .container{max-width:1100px;margin:0 auto;padding:18px}
+  .step-hidden { display: none; }
+    .progress-bar { transition: width .3s ease; }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:linear-gradient(180deg,#071025 0%, #071827 60%);color:#e6eef8}
+  a{color:var(--accent);text-decoration:none}
+.slide {
+  transition: opacity 1s ease-in-out;
+}
+  /* Layout */
+   .app {display:flex;width:100%;height:100vh;overflow:hidden}
+  /* Sidebar */
+  .sidebar{
+    width:var(--sidebar-w);min-width:var(--sidebar-w);
+    sidebar img.logo {width:110px;height:110px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,0.25)}
+    background:linear-gradient(180deg,#8fd1ff 0%, #3aa0ff 45%, #026aa7 100%);
+	backdrop-filter: blur(8px);
+    padding:22px;display:flex;flex-direction:column;gap:18px;
+    border-right:1px solid rgba(255,255,255,0.03);
+	.sidebar .logo-wrap{width:100%;text-align:center;padding:30px 0}
+    .sidebar img.logo {width:110px;height:110px;border-radius:50%;object-fit:contain;border:5px solid rgba(255,255,255,0.25)}
+    .sidebar h2{margin-top:8px;font-size:18px;font-weight:700;letter-spacing:0.6px}
+  }
+  
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{width:90px;height:90px;border-radius:50px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:white}
+  .site-name{font-weight:900;font-size:25px;font-family:Mistral}
+  .site-sub{font-size:15px;font-family:Cambria;color:var(--muted)}
+
+  .nav{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+  .nav button{
+    display:flex;align-items:center;gap:12px;padding:10px;border-radius:10px;border:none;background:transparent;color:inherit;cursor:pointer;
+    text-align:left;font-size:15px;
+  }
+  .nav button svg{width:18px;height:18px;flex-shrink:0;opacity:0.95}
+  .nav button.active{background:linear-gradient(90deg,var(--accent),#7c3aed);color:#fff}
+
+  .sidebar .spacer{flex:1}
+   .sidebar .logout{margin-top:auto;width:70%;padding:5px 10px;background:#ff6b6b;border-radius:8px;text-align:center;cursor:pointer;font-weight:700;color:#fff}
+
+
+  /* Content */
+  .main{
+    flex:1;padding:22px;display:flex;flex-direction:column;gap:18px;min-height:0; /* allow inner scroll */
+  }
+  .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .card{background:linear-gradient(180deg,var(--card), rgba(11,18,32,0.6));padding:16px;border-radius:var(--radius);box-shadow:0 6px 20px rgba(0,0,0,0.6);backdrop-filter: blur(6px)}
+  h2{margin:0 0 8px 0}
+  h3{font-family:Mistral;margin:0 0 8px 0}
+
+  /* Tabs area */
+  .tabs{display:flex;gap:8px;flex-wrap:wrap}
+  .tabs button{background:var(--glass-2);border:none;color:inherit;padding:8px 12px;border-radius:10px;cursor:pointer}
+  .tabs button.active{background:linear-gradient(90deg,var(--accent),#7c3aed);color:white}
+
+  /* Sections */
+  .content{overflow:auto;padding-top:4px}
+  section{margin-top:14px}
+
+  /* Gallery */
+  .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .gallery img{width:100%;height:160px;object-fit:cover;border-radius:10px}
+
+  /* People grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .person{display:flex;gap:12px;align-items:center;padding:12px;border-radius:10px;background:var(--glass)}
+  .person img{width:86px;height:86px;border-radius:8px;object-fit:cover}
+
+  /* Archive */
+  .archive .row{display:flex;gap:20px;align-items:center;padding:10px;border-bottom:10px solid rgba(255,255,255,0.03)}
+  #contactForm .btn {
+  background-color: #001F3F; /* navy blue */
+  color: white; /* button text white */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#contactForm .btn:hover {
+  background-color: #003366;
+}
+
+    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:20px;font-family:Cambria}
+
+      /* Responsive */
+  @media (max-width:900px){
+    .sidebar{display:none}
+    .app{flex-direction:column}
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" aria-label="Main navigation">
+    <div class="brand">
+      <div class="logo-wrap">
+	   <img src="jlo.png" alt="JWOSA Logo" class="logo" />
+	    <div class="site-name">JWOSA CLASS OF 2020</div>
+        <div class="site-sub">Alumni Dashboard</div>
+	  </div>
+      
+	      </div>
+
+    <nav class="nav" role="navigation" aria-label="Sidebar navigation">
+      <button class="nav-link active" data-target="about">
+        <!-- home icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11.5L12 4l9 7.5"/><path d="M9 21V12h6v9"/></svg>
+        Home
+      </button>
+
+      <button class="nav-link" data-target="gallery">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
+        Gallery
+      </button>
+
+      <button class="nav-link" data-target="executives">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/><path d="M6 21v-1a4 4 0 0 1 4-4h0a4 4 0 0 1 4 4v1"/></svg>
+        Executives
+      </button>
+
+      <button class="nav-link" data-target="members">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M17 21v-2a4 4 0 0 0-4-4H9"/><circle cx="12" cy="7" r="4"/></svg>
+        Members
+      </button>
+
+      <button class="nav-link" data-target="archive">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="4"/><path d="M21 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7"/><path d="M10 12h4"/></svg>
+        Archive
+      </button>
+
+      <button class="nav-link" data-target="contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 8V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v1"/><path d="M21 8v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8"/><path d="M7 13l5 3 5-3"/></svg>
+        Contact
+      </button>
+
+    </nav>
+
+    <div class="spacer"></div>
+
+    <div class="logout">
+      <button id="logoutBtn" class="nav-link" style="width:100%;background:transparent;border:1px solid rgba(255,255,255,0.03);border-radius:10px;padding:10px;cursor:pointer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="width:18px;height:18px;margin-right:8px"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+        Logout
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+    <div class="topbar card">
+      <div>
+        <h2 id="welcomeUser">WELCOME</h2>
+        <div id="userRole" style="color:var(--muted)">Member area</div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <div style="font-family:Mistral;color:#F8F8F8(--muted);font-size:17px">JWOSA ClASS OF 2020 ALUMNI Dashboard</div>
+      </div>
+    </div>
+
+    <div class="card content">
+      <!-- default: about -->
+<section id="about" style="font-family:Mistral;display:block">
+
+  <h3>ABOUT / HISTORY</h3>
+
+  <div style="font-family:Mistral;display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start">
+
+    <!-- LEFT: GLASS-FRAMED SLIDESHOW -->
+    <div style="flex:1;min-width:260px;position:relative;">
+
+      <div style="
+        width:100%;
+        height:260px;
+        background:var(--glass-2);
+        border:2px solid rgba(255,255,255,0.08);
+        border-radius:14px;
+        box-shadow:0 6px 16px rgba(0,0,0,0.4);
+        padding:8px;
+        overflow:hidden;
+        position:relative;
+      ">
+
+        <!-- Image -->
+        <img id="aboutSlideImg"
+             src="ggg.jpg",
+			 src="g3.jpeg",
+			src="g4.jpeg",
+			src="gl1.jpeg",
+			src="gl2.jpeg",
+			src="gl3.jpeg",
+			src="gl4.jpeg",
+			src="gl5.jpeg",
+			src="gl6.jpeg",
+			src="gl7.jpeg",
+			src="gl8.jpeg",
+			src="gl9.jpeg",
+			src="gl10.jpeg",
+			src="gl11.jpeg",
+			src="sir1.JPG",
+			src="sir2.jpg",			
+             style="
+               width:100%;
+               height:100%;
+               object-fit:cover;
+               border-radius:10px;
+               transition:opacity .6s ease-in-out;
+               position:absolute;
+               top:0;
+               left:0;
+             ">
+
+        <!-- LEFT ARROW -->
+        <button id="prevAbout"
+          style="
+            position:absolute;
+            top:50%;
+            left:12px;
+            transform:translateY(-50%);
+            background:rgba(0,0,0,0.4);
+            border:none;
+            border-radius:50%;
+            width:34px;
+            height:34px;
+            color:white;
+            font-size:18px;
+            cursor:pointer;
+            backdrop-filter: blur(4px);
+          ">
+          ‹
+        </button>
+
+        <!-- RIGHT ARROW -->
+        <button id="nextAbout"
+          style="
+            position:absolute;
+            top:50%;
+            right:12px;
+            transform:translateY(-50%);
+            background:rgba(0,0,0,0.4);
+            border:none;
+            border-radius:50%;
+            width:34px;
+            height:34px;
+            color:white;
+            font-size:18px;
+            cursor:pointer;
+            backdrop-filter: blur(4px);
+          ">
+          
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT: NOTE / HISTORY -->
+    <div style="flex:1;min-width:260px;">
+	
+      <p style="font-family:Cambria;color:#FFFFFF(--muted);line-height:1.6;font-size:15px">
+        Welcome to JWOSA Class of 2020 Portal.  
+        This website serves as our official digital archive and community hub, 
+        documenting our achievements, friendships, and memories from our time together.
+
+        <br><br>
+
+        The goal of this platform is to preserve our history, strengthen our unity, 
+        and maintain communication among all members across different locations.
+
+        <br><br>
+        You can navigate through the dashboard to view the gallery, members, executives, archives, and more.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+      <section id="gallery" style="display:none">
+        <h3>GALLERY</h3>
+        <div class="gallery" id="galleryGrid"></div>
+      </section>
+
+      <section id="executives" style="display:none">
+        <h3>EXECUTIVES</h3>
+        <div class="grid" id="executiveGrid"></div>
+      </section>
+
+      <section id="members" style="display:none">
+        <h3>MEMBERS</h3>
+        <div class="grid" id="membersGrid"></div>
+      </section>
+
+      <section id="archive" style="display:none">
+        <h3>ARCHIVES</h3>
+        <div id="archiveList">
+		</div>
+      </section>
+
+      <section id="contact" style="display:none">
+        <h3>CONTACT</h3>
+        <form id="contactForm">
+          <label>Name<input name="name" required></label><br>
+          <label>Email<input name="email" type="email" required></label><br>
+          <label>Message<textarea name="message" rows="4" required></textarea></label><br>
+          <button class="btn" type="submit">Send</button>
+        </form>
+		<p> <i>You can view the developer portfolio by clicking this link below:</i>   </p> <a href="https://devabdoul.github.io/myportfolio/"> @DevAbdoul</a>
+      </section>
+    </div>
+	<footer class="card">
+
+		 <div class="text-center text-sm text-white-900 py-4">
+      <small>Made with ❤️ for JWOSA Class of 2020.<br> © 2025-All right reserved</small>
+	  </div>
+    </footer>
+  </main>
+</div>
+
+<script>
+const aboutImages = [
+  "g1.jpeg",
+  "g3.jpeg",
+  "g4.jpeg",
+  "gl1.jpeg",
+  "gl2.jpeg",
+  "gl3.jpeg",
+  "gl4.jpeg",
+  "gl5.jpeg",
+  "gl6.jpeg",
+  "gl7.jpeg",
+  "gl8.jpeg",
+  "gl9.jpeg",
+  "gl10.jpeg",
+  "gl11.jpeg",
+  "sir1.JPG",
+  "sir2.jpg"
+];
+
+let aboutIndex = 0;
+const aboutImg = document.getElementById("aboutSlideImg");
+
+setInterval(() => {
+  aboutIndex = (aboutIndex + 1) % aboutImages.length;
+
+  // Fade out
+  aboutImg.style.opacity = 0;
+
+  setTimeout(() => {
+    // Change image after fade-out
+    aboutImg.src = aboutImages[aboutIndex];
+
+    // Fade in
+    aboutImg.style.opacity = 1;
+  }, 600); // must match CSS fade time
+}, 3000); // change every 3 seconds
+
+/* --------------- Session check --------------- */
+const session = JSON.parse(localStorage.getItem('jwosa_session') || 'null');
+if (!session) {
+  // If you're testing locally and your index is at a different path, edit the line below.
+  // Default: returns to index.html (welcome)
+  window.location.href = 'index.html';
+} else {
+  document.getElementById('welcomeUser').textContent = 'Welcome, ' + (session.name.split(' ')[0]||session.name);
+  document.getElementById('userRole').textContent = session.role || 'Member';
+}
+
+/* --------------- Navigation logic --------------- */
+const navButtons = document.querySelectorAll('.nav-link');
+navButtons.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    // ignore logout button (handled separately)
+    const target = btn.dataset.target;
+    if (!target) return;
+    // set active
+    document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
+    btn.classList.add('active');
+    // hide all sections
+    ['about','gallery','executives','members','archive','contact'].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el) el.style.display = (id===target)? 'block' : 'none';
+    });
+    // scroll to top of content
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+/* --------------- Logout --------------- */
+document.getElementById('logoutBtn').addEventListener('click', ()=>{
+  localStorage.removeItem('jwosa_session');
+  // If your index is stored locally at a special path during testing, you can change this to the absolute path.
+  // Default (recommended): go back to index.html that contains your login/register modal.
+  window.location.href = 'index.html';
+});
+
+/* --------------- Demo content population --------------- */
+(function populateDemo(){
+  const galleryGrid = document.getElementById('galleryGrid');
+  const sample = [
+    'wa.jpg',
+    'sa.jpg',
+    'za.JPG',
+	'sam.JPG',
+	'saa.jpg',
+	'ba.JPG',
+	'ha.jpg',
+	'pass.jpg',
+	'tu.JPG',
+	'g1.jpeg',
+	'g2.jpeg',
+	'g3.jpeg',
+	'g4.jpeg',
+	'gl1.jpeg',
+	'gl2.jpeg',
+	'gl3.jpeg',
+	'gl4.jpeg',
+	'gl5.jpeg',
+	'gl6.jpeg',
+	'gl7.jpeg',
+	'gl8.jpeg',
+	'gl9.jpeg',
+	'gl10.jpeg',
+	'gl11.jpeg',
+	'gl12.jpg',
+	'gl13.jpg',
+	'gl14.jpg',
+	'gl15.jpg',
+	'barrr.jpg',
+	'badd.jpg',
+  ];
+  sample.forEach(i=> galleryGrid.innerHTML += `<img src="${i}" alt="gallery">`);
+
+  const execGrid = document.getElementById('executiveGrid');
+  const executives = [
+    {name:'AbdulWahab M. S.', role:'President', gender:'M', qual:'B.Eng Elec/Elec Eng (in-view)', img:'wa.jpg'},
+    {name:'Muhammad Sani Harun', role:'Secretary', gender:'M', qual:'B.Tec Bio-Tech', img:'saa.jpg'},
+	{name:'Saleem Nuhu Adam', role:'Fin. Sec.', gender:'M', qual:'LLB Sharia Law', img:'sa.jpg'},
+	{name:'Halima Muktar Umar', role:'Treasurer', gender:'F', qual:'B.Agr Fishery', img:'ha.jpg'},
+	{name:'Zahrau Umar Risku', role:'Executive Member', gender:'F', qual:'B.Sc Math', img:'za.JPG'},
+	{name:'Badaruddeen K. Orume', role:'Law Maker', gender:'M', qual:'B.Agr Agriculture', img:'ba.JPG'},
+	{name:'Turmidhi Z. Ado', role:'Executive Member', gender:'M', qual:'B.Sc Microbiology', img:'tu.jpg'},
+	{name:'AbdurRazaq A. Isa.', role:'Executive Member', gender:'M', qual:'HND Computer Engineering', img:'pass.jpg'},
+	{name:'Alkasim A. Samu', role:'Executive Member', gender:'M', qual:'HND Computer Engineering', img:'sam.JPG'}
+	
+  ];
+  executives.forEach(p=>{
+    execGrid.innerHTML += `
+      <div class="person">
+        <img src="${p.img}" alt="${p.name}">
+        <div>
+          <b>${p.name}</b>
+          <div style="color:var(--muted)">${p.role}</div>
+          <div style="font-size:13px;margin-top:6px">Gender: ${p.gender} <br> Qual: ${p.qual}</div>
+        </div>
+      </div>`;
+  });
+
+  const members = [
+	{ name: "AbdurRauf M. Isa", img: "beki.JPG", role: "Member", gender: "M", qual: "ND Public Admin" },
+	{ name: "Salman Hassa", img: "sysy.jpg", role: "Member", gender: "M", qual: "ND Building Tech" },
+	{ name: "Mustafa I. Isa", img: "doo.jpg", role: "Member", gender: "M", qual: "ND Building Tech" },
+	{ name: "Nura Muhammad", img: "nur.jpg", role: "Member", gender: "F", qual: "ND Public Admin" },
+	{ name: "Ibrahim AbdulRahman", img: "ar.jpg", role: "Member", gender: "F", qual: "ND Public Admin" },
+	{ name: "AbdulWarith B. Mohd", img: "abk.JPG", role: "Member", gender: "M", qual: "SSCE" },
+    { name: "Saidu Abubakar", img: "sd.JPG", role: "Member", gender: "M", qual: "ND Comp. Engg." },
+	{ name: "Asma S. Garba", img: "asss.JPG", role: "Member", gender: "F", qual: "ND Agr. Tech" },
+	{ name: "Safiya H. Katon", img: "saf.JPG", role: "Member", gender: "F", qual: "SSCE" },
+	{ name: "Sharif Tijjani", img: "sha.jpg", role: "Member", gender: "M", qual: "B.Sc" },
+	{ name: "AbdulSamad Murtala", img: "ssd.jpg", role: "Member", gender: "M", qual: "B.Agr. Agriculture" },
+	{ name: "Sharif T. Dikko", img: "dkk.jpg", role: "Member", gender: "F", qual: "B.Sc Sociology" },
+	{ name: "Ishaq A. Akata", img: "isk.jpg", role: "Member", gender: "F", qual: "ND OTM" },
+    { name: "Hafsat L. Dogari", img: "haf.JPG", role: "Member", gender: "F", qual: "ND Env. Health" },
+	{ name: "AbdulRahman Kabir", img: "abba.jpg", role: "Member", gender: "M", qual: "B.Agr. Agriculture" },
+	{ name: "Amina Muhammad", img: "avaf.png", role: "Member", gender: "F", qual: "ND " },
+	{ name: "Hauwa Muhammad", img: "hau.JPG", role: "Member", gender: "F", qual: "ND " },
+	{ name: "lauanzalna Adam", img: "lau.JPG", role: "Member", gender: "F", qual: "B.Sc PHE" },
+    { name: "Sharifa Abdullahi", img: "shhr.JPG", role: "Member", gender: "F", qual: "B.Sc PHE" },
+	{ name: "Sharuzaman Sahabi", img: "avam.png", role: "Member", gender: "M", qual: "ND Public Admin" },
+	{ name: "Hussani S. Keta", img: "avam.png", role: "Member", gender: "M", qual: "B.LIS LIS" },
+	{ name: "Hassan S. Keta", img: "avam.png", role: "Member", gender: "M", qual: "B.Sc Research Operation" },
+	{ name: "Fatima Usman", img: "avaf.png", role: "Member", gender: "F", qual: "B.Sc PHE" },
+	{ name: "AbdulMumin Z. Dahiru", img: "avam.png", role: "Member", gender: "M", qual: "ND Public Admin" },
+	{ name: "Amira Abdullahi", img: "avaf.png", role: "Member", gender: "F", qual: "ND SLT" },
+	{ name: "Sadiq J. Garba", img: "avam.png", role: "Member", gender: "M", qual: "ND Public Admin" },
+	{ name: "Hannatu Ajiya", img: "avaf.png", role: "Member", gender: "F", qual: "ND" },
+	{ name: "Imrana Ahmad", img: "avam.png", role: "Member", gender: "M", qual: "SSCE" },
+	{ name: "Alyasu U. Bushe", img: "avam.png", role: "Member", gender: "M", qual: "B.Agr. Agriculture" },
+	{ name: "Hamza Dauda", img: "avam.png", role: "Member", gender: "M", qual: "SSCE" },
+	{ name: "Fatima A. Hussaini", img: "avaf.png", role: "Member", gender: "F", qual: "B.Agr. Forestry" },
+	{ name: "Munibat D. Kasim", img: "avaf.png", role: "Member", gender: "F", qual: "ND SLT" },
+	{ name: "Khadija U. Garba", img: "avaf.png", role: "Member", gender: "F", qual: "SSCE" },
+	{ name: "Nusaiba Maiwada", img: "avaf.png", role: "Member", gender: "F", qual: "SSCE" },
+	{ name: "Umar AbdulRauf", img: "avam.png", role: "Member", gender: "M", qual: "ND OTM" },
+	{ name: "Ahmad Yakubu", img: "avam.png", role: "Member", gender: "M", qual: "ND Public Admin" },
+	{ name: "Sulaiman Yakubu", img: "avam.png", role: "Member", gender: "M", qual: "NCE Pot Sc" },
+	{ name: "Auwal Ayuba", img: "avam.png", role: "Member", gender: "M", qual: "B.Sc" },
+	{ name: "Ilyasu A. Elyakub", img: "avam.png", role: "Member", gender: "M", qual: "ND Criminology" },
+	{ name: "Mariya Sani", img: "avaf.png", role: "Member", gender: "F", qual: "ND Health" },
+
+  
+  
+];
+
+
+const memGrid = document.getElementById("membersGrid");
+
+members.forEach(member => {
+  memGrid.innerHTML += `
+    <div class="person">
+      <img src="${member.img}" alt="${member.name}">
+      <div>
+        <b>${member.name}</b>
+        <div style="color:var(--muted)">${member.role}</div>
+        <div style="color:#FFFFFF">Gender: ${member.gender}</div>
+        <div style="color:#FFFFFF">Qual: ${member.qual}</div>
+      </div>
+    </div>
+  `;
+});
+
+
+
+ const archList = document.getElementById('archiveList');
+
+const archives = [
+	{
+    year: 2025,
+    desc: 'Presidents of JWOSA to date.',
+    images: [
+      { src: 'sir2.jpg', note: 'First JWOSA President: Mohd H. Mohd' },
+      { src: 'sir1.JPG', note: 'President: Abubakar Yahuza' },
+      { src: 'sir22.jpg', note: 'Sir Jauro' }
+    ]
+  },
+  {
+   year: 2025,
+    desc: 'JWOSA Mentors.',
+    images: [
+      { src: 'dr.jpg', note: 'Former Principal: Sheikh Imam Dr. Ibrahim I. Bello' },
+      { src: 'mik.jpg', note: 'Fomer Senior Master: Mal. Mikaila A. Akata' },
+      { src: 'com.jpg', note: 'Teacher: Comrd. Auwal Abubakar' }
+    ]
+	},
+	{
+	 year: 2025,
+    desc: 'Teachers.',
+    images: [
+      { src: 'yush.jpg', note: 'Master: Sir. Yushau Hassan Abe' },
+      { src: 'naz.jpg', note: 'Teacher: Sir Nazir Sangari' },
+      { src: 'umm.jpg', note: 'Teacher: Sir. Umar Farouq Dauda' }
+    ]
+	},
+  {
+    year: 2025,
+    desc: 'JWOSA Class of 2020 First set of the Executives.',
+    images: [
+      { src: 'tu.JPG', note: 'First  President: Turmuzi Z. Ado' },
+      { src: 'ba.JPG', note: 'V. President: Badaruddeen K. Orume' },
+      { src: 'pass.jpg', note: 'Speaker/Fin. Sec.Engr. AbdurRazaq A. Isa' }
+    ]
+	},
+  {
+    year: 2020,
+    desc: 'Original class photos and records.',
+    images: [
+      { src: 'g1.jpeg', note: 'Old Record' },
+      { src: 'g2.jpeg', note: 'First classroom' },
+      { src: 'g3.jpeg', note: 'Class Group Photo' }
+    ]
+  },
+  {
+    year: 2025,
+    desc: 'Reunion photos and minutes.',
+    images: [
+      { src: 'g4.jpeg', note: 'Reunion gathering' },
+      { src: 'gl5.jpeg', note: 'Dinner event' },
+      { src: 'gl6.jpeg', note: 'Speeches' }
+    ]
+  },
+  {
+    year: 2018,
+    desc: 'JWOSA CONGRESS photos and minutes.',
+    images: [
+      { src: 'j20181.jpg', note: 'President taking the selfie' },
+      { src: 'j20182.jpg', note: 'Group Pic' },
+      { src: 'J20183.jpg', note: 'General Pic' }
+    ]
+  }
+];
+
+archives.forEach(a => {
+  // Build gallery HTML
+  const galleryHTML = a.images.map(img => `
+    <div style="margin:5px; text-align:center;">
+      <img src="${img.src}" style="width:200px; height:150px; object-fit:cover; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.2)">
+      <div style="font-size:12px; color:#F8F8F8; margin-top:4px;">${img.note}</div>
+    </div>
+  `).join('');
+
+  archList.innerHTML += `
+    <div class="row" style="margin-bottom:30px;">
+      <div style="width:90px; font-weight:700; float:left;">${a.year}</div>
+      <div style="margin-left:100px; color:var(--muted)">
+        <div>${a.desc}</div>
+        <div style="display:flex; flex-wrap:wrap; margin-top:10px;">${galleryHTML}</div>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  `;
+});
+
+
+})();
+
+/* --------------- Contact form (local save) --------------- */
+document.getElementById('contactForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const obj = Object.fromEntries(fd.entries());
+  const msgs = JSON.parse(localStorage.getItem('jwosa_messages')||'[]');
+  msgs.push({...obj,ts:Date.now()});
+  localStorage.setItem('jwosa_messages', JSON.stringify(msgs));
+  alert('Message saved locally. Thank you!');
+  e.target.reset();
+});
+</script>
+
+</body>
+</html>
